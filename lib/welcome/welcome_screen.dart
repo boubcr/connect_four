@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'dart:math' as math;
 
 import 'package:connect_four/game/game.dart';
+import 'package:connect_four/game/widgets/min_board_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -72,27 +73,37 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       {
         "header": 'onboarding.ai.header',
         "description": 'onboarding.ai.description',
-        "image": "assets/images/2.png",
+        "image": "assets/img/robot.png",
         "showStart": false
       },
       {
         "header": 'onboarding.friends.header',
         "description": 'onboarding.friends.description',
-        "image": "assets/images/3.png",
+        "image": "assets/img/rubix_cube.png",
         "showStart": false
       },
       {
         "header": 'onboarding.customize.header',
         "description": 'onboarding.customize.description',
-        "image": "assets/images/1.png",
+        "image": "assets/img/puzzle-clip.png",
         "showStart": true
       },
     ];
 
     return items
         .map((item) => Container(
-                //padding: EdgeInsets.symmetric(horizontal: 18.0),
-                child: Column(
+            //padding: EdgeInsets.symmetric(horizontal: 18.0),
+            decoration: BoxDecoration(
+              gradient: RadialGradient(
+                //colors: [Colors.yellow, Colors.deepPurple],
+                colors: [Colors.white, Theme.of(context).primaryColorLight]
+                /*colors: [
+                  Theme.of(context).primaryColor,
+                  Theme.of(context).primaryColorLight
+                ]*/
+              ),
+            ),
+            child: Column(
               children: <Widget>[
                 Flexible(
                   flex: 2,
@@ -100,8 +111,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   child: Container(
                     //color: Theme.of(context).primaryColor,
                     //padding: EdgeInsets.only(top: 100.0),
-                    alignment: Alignment.bottomCenter,
-                    child: buildImageWidget_01(),
+                    alignment: Alignment.center,
+                    child: buildImageWidget_01(item['image']),
                   ),
                 ),
                 Flexible(
@@ -141,49 +152,75 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         .toList();
   }
 
-  Widget buildImageWidget_01() {
+  Widget buildImageWidget_01(String image) {
+    Size size = MediaQuery.of(context).size;
     return Container(
-      //height: 450,
-      //width: 350,
+      //height: 200,
+      //width: 200,
       //color: Colors.white,
       //padding: EdgeInsets.all(20.0),
-      margin: EdgeInsets.all(40.0),
+      margin: EdgeInsets.all(size.width * 0.3),
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
           Transform.rotate(
-            angle: .1,
+            angle: .2,
             child: Center(
               child: buildRotatedCard(Colors.green),
             ),
           ),
           Transform.rotate(
-            angle: -.1,
+            angle: -.2,
             child: Center(
               child: buildRotatedCard(Colors.blue),
             ),
           ),
-          buildImageCard(),
+          buildImageCard_02(image),
         ],
       ),
     );
   }
 
-  Widget buildImageCard() {
+  Widget buildImageCard_01() {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      /*decoration: BoxDecoration(
+          color: Colors.white,
+          //color: Theme.of(context).primaryColorLight,
+          border: Border.all(
+            //color: color,
+              color: Theme.of(context).primaryColor,
+              width: 10.0,
+              style: BorderStyle.solid
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(1.0)),
+        ),*/
+      child: MinBoardScreen(isWelcome: true),
+    );
+  }
+
+  Widget buildImageCard_02(String image) {
+    //String image = 'assets/img/robot.png';
+    //image = 'assets/img/puzzle-clip_01.png';
+    //image = 'assets/img/puzzle-clip.png';
+    //image = 'assets/img/rubix_cube_01.png';
+    //image = 'assets/img/rubix_cube.png';
     return Center(
       child: new Container(
         //color: Colors.white,
+        padding: EdgeInsets.all(20.0),
         child: new Container(
           decoration: new BoxDecoration(
-              border: new Border.all(
+              /*border: new Border.all(
                   color: Theme.of(context).primaryColor,
-                  width: 1.0,
+                  width: 0.0,
                   style: BorderStyle.solid),
-              borderRadius: new BorderRadius.circular(1.0),
-              image: new DecorationImage(
-                  alignment: Alignment.topCenter,
-                  image: new AssetImage('assets/screenshots/screenshot_01.png'),
-                  fit: BoxFit.cover)),
+              borderRadius: new BorderRadius.circular(0.0),*/
+              image: DecorationImage(
+                  alignment: Alignment.center,
+                  image: new AssetImage(image),
+                  fit: BoxFit.contain)),
         ),
       ),
     );
@@ -194,14 +231,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white,
-          //color: Theme.of(context).primaryColorLight,
+          //color: Colors.white,
+          color: Theme.of(context).primaryColor,
           border: Border.all(
               //color: color,
-            color: Theme.of(context).primaryColor,
+              color: Colors.white,
+              //color: Theme.of(context).primaryColor,
               width: 10.0,
-              style: BorderStyle.solid
-          ),
+              style: BorderStyle.solid),
           borderRadius: BorderRadius.all(Radius.circular(1.0)),
         ));
   }

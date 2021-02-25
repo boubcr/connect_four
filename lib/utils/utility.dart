@@ -10,6 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 //https://connectfour-2dad8.firebaseapp.com/__/auth/handler
 
 class Utility {
+
   static Locale getLocale(BuildContext context, String langCode) {
     return context.supportedLocales.firstWhere(
             (locale) => locale.languageCode == langCode,

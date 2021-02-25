@@ -6,10 +6,11 @@ class MinBoardScreen extends StatelessWidget {
   final double height;
   final double width;
   final bool isLeft;
+  final bool isWelcome;
 
   Board board;
 
-  MinBoardScreen({Key key, this.height, this.width, this.isLeft = false})
+  MinBoardScreen({Key key, this.height, this.width, this.isLeft = false, this.isWelcome = false})
       : super(key: key) {
 
     Player pl1 = Player(
@@ -24,13 +25,31 @@ class MinBoardScreen extends StatelessWidget {
       color: Colors.red.value,
     );
 
+    BoardSettings settings = BoardSettings(rows: 3, columns: 3, style: DotStyle());
+    List<Move> moves = isLeft ? leftMoves(pl1) : rightMoves(pl2);
+
+    if (isWelcome) {
+      settings = BoardSettings(rows: 4, columns: 4, style: DotStyle(shape: DotShape.CIRCLE));
+      moves = welcomeMoves(pl1, pl2);
+    }
+
     board = Board(
         status: DotStatus.DEACTIVATE,
-        settings: BoardSettings(rows: 3, columns: 3, style: DotStyle()),
+        settings: settings,
         player: pl1,
         opponent: pl2,
-        moves: isLeft ? leftMoves(pl1) : rightMoves(pl2));
+        moves: moves);
   }
+
+  List<Move> welcomeMoves(Player pl1, Player pl2) => [
+    Move(dot: Dot(row: 0, column: 0), madeBy: pl2.id),
+    Move(dot: Dot(row: 0, column: 2), madeBy: pl2.id),
+    Move(dot: Dot(row: 2, column: 0), madeBy: pl2.id),
+    Move(dot: Dot(row: 2, column: 2), madeBy: pl1.id),
+    Move(dot: Dot(row: 2, column: 4), madeBy: pl1.id),
+    Move(dot: Dot(row: 4, column: 2), madeBy: pl1.id),
+    Move(dot: Dot(row: 4, column: 4), madeBy: pl1.id)
+  ];
 
   List<Move> leftMoves(Player pl1) => [
     Move(dot: Dot(row: 0, column: 0), madeBy: pl1.id),

@@ -400,6 +400,7 @@ YYDialog boardSettingsDialog(
       'game.board.settings',
       style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
     ).tr()))
+    ..widget(SizedBox(height: 10.0))
     ..widget(SimpleCard(
       title: 'game.board.rows',
       child: SliderWidget(

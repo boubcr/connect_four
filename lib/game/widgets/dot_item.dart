@@ -336,7 +336,8 @@ class _DotItemState extends State<DotItem> {
   */
 
   Widget _buildText() {
-    return Center(
+    return Container();
+    /*return Center(
       child: Align(
         alignment: Alignment.center,
         child: Text(
@@ -345,7 +346,7 @@ class _DotItemState extends State<DotItem> {
                 : this.widget.dot.id,
             style: TextStyle(fontSize: 18, color: Colors.white)),
       ),
-    );
+    );*/
   }
 
 }

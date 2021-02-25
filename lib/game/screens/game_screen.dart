@@ -174,6 +174,7 @@ class _GameScreenState extends State<GameScreen> {
       _gameOverDialog = gameOverDialog(
           context: context, manager: manager, time: _controller.getTime());
 
+      _removeOverlay();
       _playConfettiAnimation();
     }
   }
@@ -246,6 +247,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onPauseButtonTap() {
+    _removeOverlay();
     if (_gamePauseDialog == null || !_gamePauseDialog.isShowing) {
       _controller.pause();
       _gamePauseDialog =

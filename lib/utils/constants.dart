@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:game_manager/models/models.dart';
 
 class Constants {
+
   /// GRID CONSTANTS
   static const int MIN_ROWS = 4;
   static const int MAX_ROWS = 15;

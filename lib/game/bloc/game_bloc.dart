@@ -21,6 +21,7 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
   MoveRepository moveRepository;
   StreamSubscription _movesSubscription;
 
+  AuthBloc _authBloc;
   GameRepository _gamesRepository;
   StreamSubscription _gamesSubscription;
   Game currentGame;
@@ -31,6 +32,7 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
       @required AuthBloc authBloc})
       : super(GamesLoadInProgress()) {
     _gamesRepository = gamesRepository;
+    _authBloc = authBloc;
   }
 
   @override
@@ -109,14 +111,15 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
   }
 
   Stream<GamesState> _mapGameAddedToState(GameAdded event) async* {
-    //TODO Add player info from Auth user
+    UserDto user = (_authBloc.state as Authenticated).user;
+
     Player player = Player(
-        id: 'player1@gmail.com',
-        name: 'Human',
+        id: user.email,
+        name: user.displayName,
         color: event.playerColor,
         mark: Mark.PX);
 
-    Player opponent = Player(color: event.opponentColor, mark: Mark.PY);
+    Player opponent = Player(id: 'ai', color: event.opponentColor, mark: Mark.PY);
 
     switch (event.mode) {
       case GameMode.ONE_PLAYER:
@@ -127,11 +130,11 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
             break;
           case GameLevel.MEDIUM:
             opponent = opponent.copyWith(
-                name: 'MiniMax D3', strategy: MiniMaxStrategy(depth: 3));
+                name: 'MiniMax D3', strategy: AlphaBetaPruningStrategy(depth: 3));
             break;
           case GameLevel.HARD:
             opponent = opponent.copyWith(
-                name: 'MiniMax D6', strategy: MiniMaxStrategy(depth: 6));
+                name: 'MiniMax D6', strategy: AlphaBetaPruningStrategy(depth: 6));
             break;
           default:
             break;
