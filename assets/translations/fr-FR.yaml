@@ -1,0 +1,99 @@
+title: "Connect Four"
+onePlayer: Un joueur
+twoPlayers: 2 joueurs
+options: Options
+share: Partager
+new: Nouvelle partie
+continue: Continuer
+pause: Mis en paused
+getStarted: Commencer
+pickTheme: Choisir un theme
+
+game:
+  title: Paramétrage
+  player: Joueur
+  score: Points
+  moves: Coups
+  playAs: Couleur joueur
+  opponentAs: Couleur adversaire
+  time:
+    title: Temps alloué
+    subtitle: (Min)
+    remaining: Temps restant
+  submit: Commener
+  board:
+    title: Tableau
+    settings: Paramètre tableau
+    rows: Lignes
+    columns: Colonnes
+    background: Arrière plan
+    submit: OK
+
+end:
+  timeOut: Temps imparti terminé!
+  winning:
+    title: Félicitation
+    subtitle: Vous avez gagné la partie!
+  losing:
+    title: Vous avez perdu
+    subtitle: Fin du jeu!
+  drawing:
+    title: Egalité
+    subtitle: Aucun vainqueur!
+
+settings:
+  title: Paramètres
+  theme: Thème
+  highlight: Activer le dernier coup
+  sounds: Activier le son
+  lang: Langues
+
+account:
+  title: Mon compte
+  logout: Déconnecter
+  delete: Supprimer le compte
+rules:
+  title: Les règles
+  text: Règles
+  paragraph1: Close more boxes than your opponent!
+  paragraph2: Close a box by connecting 4 dots.
+  paragraph3: Click on dots to select them.
+  paragraph4: When 4 dots of your color make a square, that box become yours and is connected by 4 lines.
+  paragraph5: You play in turns with your opponent, when you mark a dot wait for your opponent to mark his dot.
+
+onboarding:
+  ai:
+    header: Jouer contre IA
+    description: Le mode un joueur vous permettra de jouer contre une IA sur une durée determinée
+  friends:
+    header: Jouer avec un ami
+    description: Le mode deux joueur donne la possibilité de jouer contre un ami
+  customize:
+    header: Personnaliser
+    description: Personnaliser l'application selon vos préferences
+
+login:
+  title: Connexion
+  button: Connexion
+  signIn: S'identifier
+  subtitle: Les utilisateurs doivent s'identifier pour accéder à l'application.
+  failure: Echec connexion
+  logging: En cours...
+  socials: Utiliser les réseaux sociaux
+  emailLogin: un s'identifier avec email
+  email: Email
+  invalidEmail: Email invalide
+  password: Mot de passe
+  invalidPassword: Mot de passe invalide
+  noAccount: Vous n'avez pas de compte ?
+  createAccount: Créer un compte
+register:
+  title: S'inscrire
+  text: S'inscrire
+  subtitle: Inscrivez vous pour commencer le jeu
+  registering: En cours ...
+  failure: Echec inscription
+  withEmail: S'inscrire avec email
+  username: Nom d'utilisateur
+  orSocials: un utiliser les réseaux sociaux
+  haveAccount: Vous avez déjà un compte ?

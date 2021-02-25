@@ -1,0 +1,99 @@
+title: "Connect Four"
+onePlayer: One Player
+twoPlayers: 2 Players
+options: Options
+share: Share
+new: New Game
+continue: Continue
+pause: Game paused
+getStarted: Get Started
+pickTheme: Pick theme
+
+game:
+  title: Game Setup
+  player: Player
+  score: Score
+  moves: Moves
+  playAs: Play As
+  opponentAs: Opponent As
+  time:
+    title: Time limit
+    subtitle: (Min)
+    remaining: Remaining Time
+  submit: Start Game
+  board:
+    title: Board
+    settings: Board Settings
+    rows: Rows
+    columns: Columns
+    background: Background
+    submit: OK
+
+end:
+  timeOut: Time out!
+  winning:
+    title: Congratulation
+    subtitle: You won the game!
+  losing:
+    title: You lose
+    subtitle: Game over!
+  drawing:
+    title: It's a draw
+    subtitle: No winner!
+
+settings:
+  title: Settings
+  theme: Theme
+  highlight: Highlight last move
+  sounds: Turn on sounds
+  lang: Language
+
+account:
+  title: Account
+  logout: Logout
+  delete: Delete account
+rules:
+  title: Rules
+  text: Rules
+  paragraph1: Close more boxes than your opponent!
+  paragraph2: Close a box by connecting 4 dots.
+  paragraph3: Click on dots to select them.
+  paragraph4: When 4 dots of your color make a square, that box become yours and is connected by 4 lines.
+  paragraph5: You play in turns with your opponent, when you mark a dot wait for your opponent to mark his dot.
+
+onboarding:
+  ai:
+    header: Play with AI
+    description: One player mode which provides its users an AI agent to play against
+  friends:
+    header: Play with friends
+    description: Two players mode which provides its users a functionality to play against a friend
+  customize:
+    header: Customize
+    description: Customize the App theme to match your preferences
+
+login:
+  title: Login Now
+  button: Login
+  signIn: Sign in
+  subtitle: Please login to continue using the app
+  failure: Login Failure
+  logging: Logging In...
+  socials: Enter via social networks
+  emailLogin: or login with email
+  email: Email
+  invalidEmail: Invalid Email
+  password: Password
+  invalidPassword: Invalid Password
+  noAccount: Don\'t have an account ?
+  createAccount: Create an Account
+register:
+  title: Sign up
+  text: Register
+  subtitle: Please sign up to enter in the app
+  registering: Registering...
+  failure: Registration Failure
+  withEmail: Sign up with email
+  username: Username
+  orSocials: or enter via social networks
+  haveAccount: Already have an account ?

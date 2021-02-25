@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "610483332816",
+    "project_id": "connectfour-2dad8",
+    "storage_bucket": "connectfour-2dad8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610483332816:android:b3ed40a1a4ebc0984be0d5",
+        "android_client_info": {
+          "package_name": "com.bbah.connect_four"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610483332816-b7eia67g4vsr384q4sa9tnlvvehq1nlo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFiAbnaQ-pGs7M6A87Wh50Cg2-9VihRnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610483332816-b7eia67g4vsr384q4sa9tnlvvehq1nlo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
