@@ -47,6 +47,9 @@ settings:
   highlight: Highlight last move
   sounds: Turn on sounds
   lang: Language
+  delete: Yes delete
+  confirm: Confirmation
+  deleteText: Do you want to permanently delete your data ?
 
 account:
   title: Account

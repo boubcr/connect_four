@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:confetti/confetti.dart';
+import 'package:connect_four/ads/ads.dart';
+import 'package:connect_four/auth/auth.dart';
 import 'package:connect_four/common/country_item.dart';
 import 'package:connect_four/common/custom_audio_player.dart';
 import 'package:connect_four/common/painted_button.dart';
@@ -13,6 +15,7 @@ import 'package:connect_four/utils/routes.dart';
 import 'package:connect_four/utils/utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_manager/game_manager.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -177,8 +180,7 @@ YYDialog gameOverDialog(
     ..gravity = Gravity.bottom
     ..gravityAnimationEnable = true
     ..backgroundColor = Theme.of(context).primaryColorLight
-    ..barrierDismissible = true
-    //..barrierColor = Colors.transparent
+    ..barrierDismissible = false
     ..decoration = _dialogDecoration(context)
     ..widget(_buildDialogTitle())
     ..widget(_buildResults())
@@ -196,7 +198,6 @@ YYDialog gameOverDialog(
 YYDialog gamePauseDialog(
     {BuildContext context, CountDownController controller}) {
   Widget _buildDialogTitle() {
-    //TODO Add Ads here
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
@@ -226,6 +227,7 @@ YYDialog gamePauseDialog(
   }
 
   void _onContinuePressed() {
+    //TODO get rid of pop
     Navigator.of(context).pop();
     controller.resume();
   }
@@ -263,7 +265,8 @@ YYDialog gamePauseDialog(
     ..decoration = _dialogDecoration(context)
     ..widget(_buildDialogTitle())
     ..widget(_buildDialogBody())
-    ..divider(height: 15.0, color: Theme.of(context).dividerColor)
+    ..widget(BannerAd(type: BannerAdType.LARGE))
+    ..divider(color: Theme.of(context).dividerColor)
     ..widget(_buildActionButtons())
     ..animatedFunc = (child, animation) {
       return ScaleTransition(
@@ -448,6 +451,68 @@ YYDialog boardSettingsDialog(
       },
     ))
     ..widget(SizedBox(height: 10.0))
+    ..animatedFunc = (child, animation) {
+      return ScaleTransition(
+        child: child,
+        scale: Tween(begin: 0.0, end: 1.0).animate(animation),
+      );
+    }
+    ..show();
+
+  return yyDialog;
+}
+
+YYDialog confirmDeleteDialog({BuildContext context}) {
+  YYDialog yyDialog = YYDialog();
+
+  Widget _buildDialogTitle() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5.0),
+      child: ListTile(
+        title: Center(
+            child: Text(
+          'settings.confirm',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+        ).tr()),
+      ),
+    );
+  }
+
+  Widget _buildDialogBody() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20.0),
+      child: Text("settings.deleteText").tr(),
+    );
+  }
+
+  void _onDeletePressed() {
+    yyDialog.dismiss();
+    BlocProvider.of<AuthBloc>(context).add(DeleteAccount());
+    Navigator.popUntil(context, ModalRoute.withName(AppRoutes.home));
+  }
+
+  Widget _buildActionButtons() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      child: PaintedButton(
+          label: 'settings.delete',
+          height: 40,
+          widthScale: .7,
+          onPressed: _onDeletePressed),
+    );
+  }
+
+  yyDialog.build()
+    ..gravity = Gravity.bottom
+    ..gravityAnimationEnable = true
+    ..backgroundColor = Theme.of(context).primaryColorLight
+    ..barrierDismissible = true
+    ..decoration = _dialogDecoration(context)
+    ..widget(_buildDialogTitle())
+    ..widget(_buildDialogBody())
+    ..divider(color: Theme.of(context).dividerColor)
+    ..widget(SizedBox(height: 10))
+    ..widget(_buildActionButtons())
     ..animatedFunc = (child, animation) {
       return ScaleTransition(
         child: child,

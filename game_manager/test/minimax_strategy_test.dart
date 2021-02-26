@@ -12,8 +12,8 @@ void main() {
   initRootLogger();
   DisplayBoard display = DisplayBoard(show: true, testing: true);
 
-  Player pxMin = TestUtils.pxBlue.clone(strategy: MiniMaxStrategy(depth: 1));
-  Player pyMin = TestUtils.pyRed.clone(strategy: MiniMaxStrategy(depth: 3));
+  Player pxMin = TestUtils.pxBlue.copyWith(strategy: MiniMaxStrategy(depth: 1));
+  Player pyMin = TestUtils.pyRed.copyWith(strategy: MiniMaxStrategy(depth: 3));
 
   group('MiniMax strategy 01', () {
     test('MiniMax vs MiniMax', () {

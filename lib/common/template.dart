@@ -22,8 +22,9 @@ class Template extends StatelessWidget {
     );
   }
 
-  Widget scaffold({bool withAppBar = true}) {
+  Widget scaffold({Key key, bool withAppBar = true}) {
     return Scaffold(
+      key: key,
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
       appBar: withAppBar ? AppBar(

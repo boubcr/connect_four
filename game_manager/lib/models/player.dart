@@ -93,8 +93,6 @@ class Player extends Equatable {
       strategyType = StrategyType.NAIVE;
     else if (strategy is MiniMaxStrategy)
       strategyType = StrategyType.MINI_MAX;
-    else if (strategy is EvaluationStrategy)
-      strategyType = StrategyType.EVALUATION;
 
     return PlayerEntity(
         id: id,
@@ -115,9 +113,6 @@ class Player extends Equatable {
         break;
       case StrategyType.MINI_MAX:
         strategy = MiniMaxStrategy();
-        break;
-      case StrategyType.EVALUATION:
-        strategy = EvaluationStrategy();
         break;
       default:
         break;

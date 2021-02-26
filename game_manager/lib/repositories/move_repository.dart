@@ -12,5 +12,7 @@ abstract class MoveRepository {
 
   Future<void> deleteMove(Move dto);
 
+  Future<void> deleteMoves(String game);
+
   Future<void> updateMove(Move dto);
 }

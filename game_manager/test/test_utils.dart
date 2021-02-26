@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_manager/ai/strategy/evaluation_strategy.dart';
+import 'package:game_manager/ai/strategy/alpha_beta_pruning_strategy.dart';
 import 'package:game_manager/ai/strategy/naive_strategy.dart';
 import 'package:game_manager/game_manager.dart';
 import 'package:game_manager/models/models.dart';
@@ -17,7 +17,7 @@ class TestUtils {
         id: Enum.getValue(Mark.PY),
         name: 'PY-Red',
         mark: Mark.PY,
-        strategy: EvaluationStrategy(),
+        strategy: AlphaBetaPruningStrategy(),
         color: Colors.red.value,
       );
 

@@ -1,6 +1,5 @@
 class AppRoutes {
   static const home = "/";
-  static const onBoarding = "/onBoarding";
   static const newGame = "/new";
   static const gameScreen = "/game";
   static const settings = "/settings";

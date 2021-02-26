@@ -1,10 +1,12 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:confetti/confetti.dart';
+import 'package:connect_four/ads/ads.dart';
+import 'package:connect_four/animations/move_animation.dart';
 import 'package:connect_four/common/loading_indicator.dart';
 import 'package:connect_four/game/screens/screens.dart';
 import 'package:connect_four/utils/app_keys.dart';
 import 'package:connect_four/common/custom_audio_player.dart';
-import 'package:connect_four/game/widgets/game_dialogs.dart';
+import 'package:connect_four/common/game_dialogs.dart';
 import 'package:connect_four/game/widgets/widgets.dart';
 import 'package:connect_four/utils/utility.dart';
 import 'package:flutter/foundation.dart';
@@ -33,12 +35,16 @@ class _GameScreenState extends State<GameScreen> {
   ConfettiController _controllerCenter;
   GameManager manager;
 
+  InterstitialAd _interstitialAd;
+
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     _controllerCenter =
         ConfettiController(duration: const Duration(seconds: 10));
     CustomAudioPlayer.playPlayingBGM();
+    _interstitialAd = InterstitialAd();
+    _interstitialAd.load();
     super.initState();
   }
 
@@ -88,7 +94,6 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget _countdownWidget() {
-    _log.info('manager.thinkTime: ${manager.thinkTime}');
     return Container(
       color: Colors.transparent,
       padding: EdgeInsets.all(1.0),
@@ -176,6 +181,7 @@ class _GameScreenState extends State<GameScreen> {
 
       _removeOverlay();
       _playConfettiAnimation();
+      _interstitialAd.show();
     }
   }
 
@@ -222,6 +228,7 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     /// Remove last animation entry before creating new one
+    //TODO not working for end game dialog
     _overlayEntry?.remove();
 
     this._overlayEntry = OverlayEntry(
@@ -263,9 +270,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget _buildCongratsConfetti() => Container(
-        //color: Colors.red,
         child: Align(
-          //alignment: Alignment.center,
           alignment: Alignment.topCenter,
           child: ConfettiWidget(
             confettiController: _controllerCenter,

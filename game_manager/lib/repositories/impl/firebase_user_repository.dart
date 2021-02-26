@@ -10,7 +10,9 @@ class FirebaseUserRepository implements UserRepository {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final FacebookAuth _facebookAuth;
-  final PlayerRepository playerRepository = FirebasePlayerRepository();
+  final GameRepository _gameRepository = FirebaseGameRepository(
+      playerRepository: FirebasePlayerRepository(),
+      moveRepository: FirebaseMoveRepository());
   final collection = FirebaseFirestore.instance.collection('users');
 
   FirebaseUserRepository(
@@ -30,7 +32,7 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<UserDto> getUser() async {
     User user = _firebaseAuth.currentUser;
-    _log.info('User: $user');
+    _log.info('User: ${user.email}');
     if (user == null) return null;
 
     return UserDto(
@@ -70,8 +72,6 @@ class FirebaseUserRepository implements UserRepository {
       User user = userCredential.user;
       user.updateProfile(displayName: username);
       await user.reload();
-
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         _log.severe('The password provided is too weak.');
@@ -79,10 +79,11 @@ class FirebaseUserRepository implements UserRepository {
         _log.severe('The account already exists for that email.');
       } else {
         _log.severe('Something Went Wrong.');
+        _log.severe(e);
         return "Something Went Wrong.";
       }
     } catch (e) {
-      print(e);
+      _log.severe(e);
     }
   }
 
@@ -91,7 +92,7 @@ class FirebaseUserRepository implements UserRepository {
     try {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -99,7 +100,8 @@ class FirebaseUserRepository implements UserRepository {
       );
 
       // Sign the user in with the credential
-      UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
       _log.info('Google sign in: ${_firebaseAuth.currentUser.email}');
 
       if (pending != null) {
@@ -112,6 +114,7 @@ class FirebaseUserRepository implements UserRepository {
       return firebaseAuthExceptionHandler(e);
     } catch (e) {
       _log.severe('Unhandled exception');
+      _log.severe(e);
       throw e;
     } finally {}
   }
@@ -125,7 +128,8 @@ class FirebaseUserRepository implements UserRepository {
       );
 
       // Sign the user in with the credential
-      UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
       _log.info('Facebook sign in: ${_firebaseAuth.currentUser.email}');
 
       if (pending != null) {
@@ -150,12 +154,13 @@ class FirebaseUserRepository implements UserRepository {
       AuthCredential pendingCredential = e.credential;
 
       // Fetch a list of what sign-in methods exist for the conflicting user
-      List<String> userSignInMethods = await _firebaseAuth.fetchSignInMethodsForEmail(email);
+      List<String> userSignInMethods =
+          await _firebaseAuth.fetchSignInMethodsForEmail(email);
 
       // If the user has several sign-in methods,
       // the first method in the list will be the "recommended" method to use.
       String firstProvider = userSignInMethods.first;
-      switch(firstProvider) {
+      switch (firstProvider) {
         case 'password':
           //TODO handle this case
           /*// Prompt the user to enter their password
@@ -192,14 +197,18 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<void> deleteUser() async {
     try {
-      await FirebaseAuth.instance.currentUser.delete();
+      User user = _firebaseAuth.currentUser;
+      await _gameRepository.deleteUserGames(user.email);
+      await user.delete();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
-        print(
+        _log.severe(
             'The user must reauthenticate before this operation can be executed.');
       }
+      //throw e;
     } catch (e) {
-      print(e);
+      _log.severe(e);
+      //throw e;
     }
   }
 

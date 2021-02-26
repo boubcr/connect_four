@@ -132,4 +132,14 @@ class FirebaseMoveRepository implements MoveRepository {
   CollectionReference _getCollection(String gameId) {
     return collection.doc(gameId).collection('moves');
   }
+
+  @override
+  Future<void> deleteMoves(String game) {
+    return _getCollection(game).get().then((snap) {
+      snap.docs.forEach((doc) async {
+        String id = doc.id;
+        await doc.reference.delete();
+      });
+    });
+  }
 }

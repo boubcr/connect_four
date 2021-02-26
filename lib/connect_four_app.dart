@@ -104,15 +104,10 @@ class _ConnectFourAppState extends State<ConnectFourApp> {
   }
 
   Widget _buildMaterialApp({SettingsOption settings}) {
-    //context.locale = Locale('en', 'US');
-    //state.options.theme.theme
     Locale selectedLocale = Utility.getLocale(context, settings.language);
     context.locale = selectedLocale;
 
     _log.info(settings);
-
-    _log.info('selectedLocale: ${selectedLocale.languageCode}');
-    _log.info('context.locale: ${context.locale.languageCode}');
 
     return MaterialApp(
       theme: settings.theme.theme,
@@ -120,34 +115,16 @@ class _ConnectFourAppState extends State<ConnectFourApp> {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: selectedLocale,
-      localeResolutionCallback:
-          (Locale locale, Iterable<Locale> supportedLocales) {
-        for (final supportedLocale in supportedLocales) {
-          // The language of the device of the user is compared to every supported language.
-          // If the language codes match, the supported locale with that language code is chosen.
-          // This allows users using American English or British English as locales
-          // to be able to use the Belgian English localisation.
-          if (locale.languageCode == supportedLocale.languageCode) {
-            return supportedLocale;
-          }
-        }
-
-        // If the language of the user isn't supported, the default locale should be used.
-        return supportedLocales.first;
-      },
       routes: {
         AppRoutes.home: (context) =>
             BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-              _log.info('State changed');
               YYDialog.init(context);
               if (state is Uninitialized) {
-                _log.info('Uninitialized');
                 BackgroundSingleton(MediaQuery.of(context).size);
                 return SplashScreen();
               }
 
               if (state is Unauthenticated) {
-                _log.info('Unauthenticated');
                 return WelcomeScreen();
                 //return LoginScreen(userRepository: FirebaseUserRepository());
               }
@@ -186,26 +163,6 @@ class _ConnectFourAppState extends State<ConnectFourApp> {
                     FadeTransition(opacity: a, child: c));
         }
       },
-      /*routes: {
-        AppRoutes.home: (context) => BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) {
-              if (state is Uninitialized) {
-                return SplashScreen();
-              }
-
-              if (state is Unauthenticated) {
-                return LoginScreen(userRepository: FirebaseUserRepository());
-              }
-
-              if (state is Authenticated) {
-                return GameHome();
-              }
-
-              return LoadingIndicator();
-            }),
-        AppRoutes.newGame: (context) => NewGameScreen(),
-        AppRoutes.settings: (context) => SettingsHome(),
-      },*/
     );
   }
 }

@@ -5,12 +5,15 @@ import 'package:game_manager/game_manager.dart';
 import 'package:game_manager/models/game.dart';
 import 'package:game_manager/repositories/repositories.dart';
 import 'package:game_manager/utils/mapper.dart';
+import 'package:logging/logging.dart';
 
 class FirebaseGameRepository implements GameRepository {
+  static final _log = Logger('FirebaseGameRepository');
   final gameCollection = FirebaseFirestore.instance.collection('games');
 
   final PlayerRepository playerRepository;
-  FirebaseGameRepository({this.playerRepository}) : super();
+  final MoveRepository moveRepository;
+  FirebaseGameRepository({this.playerRepository, this.moveRepository}) : super();
 
   @override
   Future<void> addNewGame(Game game) {
@@ -52,12 +55,28 @@ class FirebaseGameRepository implements GameRepository {
   Future<void> createGame(GameManager manager) {
     GameEntity game = Mapper.toGameEntity(manager);
     return gameCollection.doc(game.id).set(game.toDocument()).then((doc) {
-      print("Game ${game.id} Added");
+      _log.info("Game ${game.id} Added");
       playerRepository.addPlayer(game.id, manager.player);
       playerRepository.addPlayer(game.id, manager.opponent);
     }).catchError((error) {
-      print("Failed to add game: $error");
+      _log.severe("Failed to add game");
+      _log.severe("$error");
     });
+  }
+
+  @override
+  Future<void> deleteUserGames(String email) {
+    return gameCollection.where('userId', isEqualTo: email).get().then((snapshot) {
+      _log.info('Deleting all ${snapshot.docs.length} games');
+      snapshot.docs.forEach((document) async {
+        await playerRepository.deleteParticipants(document.id);
+        await moveRepository.deleteMoves(document.id);
+        await document.reference.delete();
+      });
+    }).catchError((error) {
+      _log.severe("Failed to delete game");
+      _log.severe("$error");
+    });;
   }
 
   /*

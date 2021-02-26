@@ -1,7 +1,7 @@
 import 'package:connect_four/common/text_icon.dart';
 import 'package:connect_four/game/bloc/bloc.dart';
 import 'package:connect_four/game/widgets/board_settings_dialog.dart';
-import 'package:connect_four/game/widgets/game_dialogs.dart';
+import 'package:connect_four/common/game_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';

@@ -12,7 +12,6 @@ abstract class GameRepository {
 
   Future<void> createGame(GameManager manager);
 
-
   Stream<List<Game>> userGames(String userId);
 
   Future<void> addNewGame(Game game);
@@ -20,6 +19,8 @@ abstract class GameRepository {
   Future<void> saveGame(Game game);
 
   Future<void> deleteGame(Game game);
+
+  Future<void> deleteUserGames(String email);
 
   Future<void> updateGame(Game game);
 }

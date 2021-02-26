@@ -1,3 +1,4 @@
+import 'package:connect_four/ads/ads.dart';
 import 'package:connect_four/auth/auth.dart';
 import 'package:connect_four/common/display_timeline_tween.dart';
 import 'package:connect_four/common/painted_button.dart';
@@ -6,7 +7,7 @@ import 'package:connect_four/common/template.dart';
 import 'package:connect_four/common/text_icon.dart';
 import 'package:connect_four/game/widgets/board_appearance.dart';
 import 'package:connect_four/game/widgets/color_picker_item.dart';
-import 'package:connect_four/game/widgets/game_dialogs.dart';
+import 'package:connect_four/common/game_dialogs.dart';
 import 'package:connect_four/game/widgets/time_selector.dart';
 import 'package:connect_four/game/widgets/board_settings_widget.dart';
 import 'package:connect_four/players/bloc/bloc.dart';
@@ -30,6 +31,8 @@ class NewGameScreen extends StatefulWidget {
 
 class _NewGameScreenState extends State<NewGameScreen> {
   static final _log = Logger('NewGameScreen');
+
+  BannerAdType _adType;
 
   int _currentRowsValue = Constants.DEFAULT_ROWS;
   int _currentColumnsValue = Constants.DEFAULT_COLUMNS;
@@ -131,11 +134,13 @@ class _NewGameScreenState extends State<NewGameScreen> {
     ];
 
     if (this.widget.mode == GameMode.ONE_PLAYER) {
+      _adType = BannerAdType.LARGE;
       displayList.addAll([
         DisplayList(props: DisplayProps.offset3, widget: timeWidget),
         DisplayList(props: DisplayProps.offset4, widget: startButton),
       ]);
     } else {
+      _adType = BannerAdType.NORMAL;
       displayList.addAll([
         DisplayList(props: DisplayProps.offset3, widget: oppColorWidget),
         DisplayList(props: DisplayProps.offset4, widget: timeWidget),
@@ -161,7 +166,8 @@ class _NewGameScreenState extends State<NewGameScreen> {
                             offset: value.get(e.props),
                             child: e.widget,
                           ))
-                      .toList()
+                      .toList(),
+                  BannerAd(type: _adType),
                 ]),
               ),
             );

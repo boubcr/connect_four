@@ -47,6 +47,9 @@ settings:
   highlight: Activer le dernier coup
   sounds: Activier le son
   lang: Langues
+  delete: Oui supprimer
+  confirm: Confirmation
+  deleteText: Voulez-vous definitivement supprimer vos données ?
 
 account:
   title: Mon compte

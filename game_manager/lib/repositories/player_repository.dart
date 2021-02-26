@@ -15,5 +15,7 @@ abstract class PlayerRepository {
 
   Future<void> deleteParticipant(Player dto);
 
+  Future<void> deleteParticipants(String game);
+
   Future saveParticipants(List<Player> dtos);
 }

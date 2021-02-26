@@ -2,7 +2,7 @@ import 'package:connect_four/common/display_timeline_tween.dart';
 import 'package:connect_four/common/loading_indicator.dart';
 import 'package:connect_four/common/shaped_card.dart';
 import 'package:connect_four/common/template.dart';
-import 'package:connect_four/game/widgets/game_dialogs.dart';
+import 'package:connect_four/common/game_dialogs.dart';
 import 'package:connect_four/settings/bloc/bloc.dart';
 import 'package:connect_four/utils/routes.dart';
 import 'package:connect_four/utils/utility.dart';

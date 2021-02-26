@@ -218,6 +218,7 @@ class BannerAdHandler {
   }
 
   void hide() {
+    _bannerAd.isLoaded();
     if (_isAdReady && _bannerAd != null) _bannerAd.dispose();
   }
 

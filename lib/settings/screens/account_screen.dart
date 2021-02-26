@@ -1,5 +1,6 @@
 import 'package:connect_four/auth/auth.dart';
 import 'package:connect_four/common/display_timeline_tween.dart';
+import 'package:connect_four/common/game_dialogs.dart';
 import 'package:connect_four/common/loading_indicator.dart';
 import 'package:connect_four/common/shaped_card.dart';
 import 'package:connect_four/common/template.dart';
@@ -153,7 +154,6 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   void _onDeleteAccount() {
-    BlocProvider.of<AuthBloc>(context).add(DeleteAccount());
-    Navigator.popUntil(context, ModalRoute.withName(AppRoutes.onBoarding));
+    confirmDeleteDialog(context: context);
   }
 }

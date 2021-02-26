@@ -9,7 +9,6 @@ export 'utils/ad_manager.dart';
 export 'validators.dart';
 
 import 'package:game_manager/ai/board_state.dart';
-import 'package:game_manager/ai/evaluator.dart';
 import 'package:game_manager/models/models.dart';
 import 'package:game_manager/utils/utils.dart';
 import "package:collection/collection.dart";
