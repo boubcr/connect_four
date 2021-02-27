@@ -8,6 +8,7 @@ class UserDto extends Equatable {
   final String photoURL;
   final String phoneNumber;
   final String providerId;
+  final String message;
 
   UserDto(
       {this.id,
@@ -15,7 +16,7 @@ class UserDto extends Equatable {
         this.displayName = '',
         this.photoURL,
         this.phoneNumber,
-        this.providerId});
+        this.providerId, this.message});
 
   UserDto copyWith(
       {String id,
@@ -23,6 +24,7 @@ class UserDto extends Equatable {
         String displayName,
         String photoURL,
         String phoneNumber,
+        String message,
         String providerId}) {
     return UserDto(
         id: id ?? this.id,
@@ -30,12 +32,15 @@ class UserDto extends Equatable {
         displayName: displayName ?? this.displayName,
         photoURL: photoURL ?? this.photoURL,
         phoneNumber: phoneNumber ?? this.phoneNumber,
+        message: message ?? this.message,
         providerId: providerId ?? this.providerId);
   }
 
+  bool get hasMessage => this.message != null;
+
   @override
   List<Object> get props =>
-      [id, email, displayName, photoURL, phoneNumber, providerId];
+      [id, email, displayName, photoURL, phoneNumber, providerId, message];
 
   @override
   String toString() {
@@ -45,6 +50,7 @@ class UserDto extends Equatable {
         'photoURL: $photoURL, '
         'phoneNumber: $phoneNumber, '
         'providerId: $providerId, '
+        'message: $message, '
         'id: $id }';
   }
 

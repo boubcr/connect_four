@@ -30,7 +30,7 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-  Future<UserDto> getUser() async {
+  Future<UserDto> getUser({String message}) async {
     User user = _firebaseAuth.currentUser;
     _log.info('User: ${user.email}');
     if (user == null) return null;
@@ -40,6 +40,7 @@ class FirebaseUserRepository implements UserRepository {
         email: user.email,
         photoURL: user.photoURL,
         phoneNumber: user.phoneNumber,
+        message: message,
         providerId: user.providerData[0].providerId);
   }
 
@@ -195,21 +196,25 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-  Future<void> deleteUser() async {
+  Future<UserDto> deleteUser() async {
+    String message = 'Operation failure';
     try {
       User user = _firebaseAuth.currentUser;
       await _gameRepository.deleteUserGames(user.email);
       await user.delete();
+      return UserDto(message: "SUCCESS");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
-        _log.severe(
-            'The user must reauthenticate before this operation can be executed.');
+        _log.severe('The user must reauthenticate before this operation can be executed.');
+        message = 'You must reauthenticate before this operation can be executed.';
       }
       //throw e;
     } catch (e) {
       _log.severe(e);
       //throw e;
     }
+
+    return getUser(message: message);
   }
 
   /*

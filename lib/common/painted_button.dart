@@ -31,7 +31,7 @@ class PaintedButton extends StatelessWidget {
 
     List<Widget> widgets = [];
     if (icon != null) {
-      widgets.add(Icon(icon, size: 40));
+      widgets.add(Icon(icon, size: 30.0));
     }
 
     widgets.add(Expanded(

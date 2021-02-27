@@ -119,6 +119,7 @@ class _ConnectFourAppState extends State<ConnectFourApp> {
         AppRoutes.home: (context) =>
             BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
               YYDialog.init(context);
+              print('MaterialApp state $state');
               if (state is Uninitialized) {
                 BackgroundSingleton(MediaQuery.of(context).size);
                 return SplashScreen();

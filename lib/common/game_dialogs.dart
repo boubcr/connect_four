@@ -488,7 +488,6 @@ YYDialog confirmDeleteDialog({BuildContext context}) {
   void _onDeletePressed() {
     yyDialog.dismiss();
     BlocProvider.of<AuthBloc>(context).add(DeleteAccount());
-    Navigator.popUntil(context, ModalRoute.withName(AppRoutes.home));
   }
 
   Widget _buildActionButtons() {

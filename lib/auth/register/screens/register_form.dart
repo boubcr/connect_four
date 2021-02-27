@@ -175,6 +175,7 @@ class _RegisterFormState extends State<RegisterForm> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text('register.haveAccount').tr(),
+                            SizedBox(width: 5.0),
                             GestureDetector(
                                 child: Text("login.signIn",
                                     style: TextStyle(

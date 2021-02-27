@@ -62,7 +62,10 @@ class AuthBloc
   }
 
   Stream<AuthState> _mapDeleteAccountToState() async* {
-    yield Unauthenticated();
-    await userRepository.deleteUser();
+    UserDto userDto = await userRepository.deleteUser();
+    print("_mapDeleteAccountToState");
+    print(userDto);
+    if (userDto.message == "SUCCESS") yield Unauthenticated();
+    else yield Authenticated(userDto);
   }
 }

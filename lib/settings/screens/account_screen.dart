@@ -22,6 +22,7 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen> {
   UserDto player;
+  bool _isDeleting = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,9 @@ class _AccountScreenState extends State<AccountScreen> {
       if (state is Authenticated) {
         player = state.user;
         return _buildContents();
-      }
+      } else if (state is Unauthenticated)
+        executeAfterBuild();
+        //Navigator.popUntil(context, ModalRoute.withName(AppRoutes.home));
 
       return LoadingIndicator();
     });
@@ -140,12 +143,20 @@ class _AccountScreenState extends State<AccountScreen> {
                             ),
                           ),
                         ),
+                        Text(player.hasMessage ? player.message : '', style: TextStyle(fontSize: 22, color: Colors.red), textAlign: TextAlign.center)
                       ],
                     ),
                   ),
                 );
               }),
         )).scaffold();
+  }
+
+  void executeAfterBuild() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print(this.player);
+        Navigator.popUntil(context, ModalRoute.withName(AppRoutes.home));
+    });
   }
 
   void _onLogout() {

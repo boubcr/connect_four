@@ -158,6 +158,7 @@ class _LoginFormState extends State<LoginForm> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text('login.noAccount').tr(),
+                            SizedBox(width: 5.0),
                             GestureDetector(
                                 child: Text("register.title",
                                     style: TextStyle(

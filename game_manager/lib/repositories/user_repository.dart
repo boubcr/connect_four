@@ -22,5 +22,5 @@ abstract class UserRepository {
 
   //Future<void> addUser();
 
-  Future<void> deleteUser();
+  Future<UserDto> deleteUser();
 }
